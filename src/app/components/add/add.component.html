@@ -1,0 +1,60 @@
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Nova marcação"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  [nzOkLoading]="isOkLoading"
+>
+  <ng-container *nzModalContent>
+    <form nz-form (formGroup)="(validateForm)" (ngSubmit)="submitForm()">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="date"
+          >Date</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <nz-date-picker
+            [(ngModel)]="data"
+            nzFormat="dd-MMM-yyyy"
+            (ngModelChange)="onChange($event)"
+            [ngModelOptions]="{ standalone: true }"
+          ></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="info"
+          >Information</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="14"
+          [nzXs]="24"
+          nzErrorTip="The input the information!"
+        >
+            <nz-tag
+      *ngFor="let tag of tags; let i = index"
+      [nzMode]="i === 0 ? 'default' : 'closeable'"
+      (nzOnClose)="handleClose(tag)"
+    >
+      {{ sliceTagName(tag) }}
+    </nz-tag>
+    <nz-tag *ngIf="!inputVisible" class="editable-tag" nzNoAnimation (click)="showInput()">
+      <i nz-icon nzType="plus"></i>
+      Add info
+    </nz-tag>
+    <input
+      #inputElement
+      nz-input
+      nzSize="small"
+      *ngIf="inputVisible"
+      type="text"
+      [(ngModel)]="inputValue"
+      [ngModelOptions]="{standalone: true}"
+      style="width: 78px;"
+      (blur)="handleInputConfirm()"
+      (keydown.enter)="handleInputConfirm()"
+    />
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+</nz-modal>
