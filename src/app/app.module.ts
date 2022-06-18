@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NzCalendarModule } from 'ng-zorro-antd/calendar'
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
-import { AddComponent } from './components/add/add.component';
+import { AddComponent } from './components/list/list-events.component';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -20,6 +20,9 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 
 registerLocaleData(en);
 
@@ -43,6 +46,9 @@ registerLocaleData(en);
     NzInputModule,
     NzTagModule,
     NzIconModule,
+    NzCardModule,
+    NzTableModule,
+    NzPopconfirmModule,
     ReactiveFormsModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],

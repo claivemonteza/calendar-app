@@ -1,0 +1,56 @@
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Scheduling of: {{marcacao?.date | date: 'dd-MMM-yyyy'}}"
+  (nzOnCancel)="cancelModal()"
+  (nzOnOk)="handleOk()"
+  [nzOkLoading]="loading"
+>
+  <ng-container *nzModalContent>
+    <div class="addInfo">
+      <button nz-button nzType="primary"  nzShape="round" class="button" *ngIf="!visible" (click)="showInput($event)">
+        <i nz-icon nzType="plus"></i>
+       New
+      </button>
+      <div *ngIf="visible">
+        <form [formGroup]="validateForm" >
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Please input information!">
+                <textarea nz-input id="information" formControlName="information" placeholder="Information" [nzAutosize]="{ minRows: 5, maxRows: 5 }"></textarea>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <button nz-button nzType="primary" (click)="submitForm()">
+                Save
+              </button>
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+        
+      </div>
+    </div>
+    
+
+    <nz-table #editRowTable  [nzData]="marcacao?.agendar" nzBordered [nzScroll]="{ y: '240px' }">
+      <thead>
+        <tr>
+          <th nzWidth="80%">Event</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of editRowTable?.data" class="editable-row">
+          <td nzWidth="80%">
+            {{ data.informacao }}
+          </td>
+          <td>
+            <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data.informacao)">
+              <i nz-icon nzType="delete" nzTheme="fill"></i>
+              Delete
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </ng-container>
+</nz-modal>

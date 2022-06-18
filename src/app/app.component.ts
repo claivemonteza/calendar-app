@@ -1,48 +1,51 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { concatMapTo } from "rxjs";
+import { EventExchanger } from "./components/list/event-exchanger.service";
+import { IAgendar } from "./domain/agendar";
+import { IMarcacao } from "./domain/marcacao";
+import { AgendarService } from "./service/agendar.service";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.less"],
 })
-export class AppComponent {
-  title = 'calendar-app';
-  day = 8;
-  visible = false;
-  date!:Date;
+export class AppComponent implements OnInit {
+  title = "calendar-app";
+  day?: number;
 
-  listDataMap = {
-    eight: [
-      { type: 'success', content: 'This is usual event.' }
-    ],
-    ten: [
-      { type: 'warning', content: 'This is warning event.' },
-      { type: 'success', content: 'This is usual event.' },
-      { type: 'error', content: 'This is error event.' }
-    ],
-    eleven: [
-      { type: 'warning', content: 'This is warning event' },
-      { type: 'success', content: 'This is very long usual event........' },
-      { type: 'error', content: 'This is error event 1.' },
-      { type: 'error', content: 'This is error event 2.' },
-      { type: 'error', content: 'This is error event 3.' },
-      { type: 'error', content: 'This is error event 4.' }
-    ]
-  };
+  marcacao?: any;
+  source: IAgendar[] = [];
+
+
+  constructor(private agendarService: AgendarService, private eventExchanger: EventExchanger) {}
+
+  ngOnInit(): void {
+    this.agendarService.getAll().subscribe((data) => {
+      this.source = data;
+    });
+  }
 
   getMonthData(date: Date): number | null {
-    console.log(date.getDay().toString())
     if (date.getMonth() === 8) {
       return 1394;
     }
     return null;
   }
 
+  setDate(date: Date) {
+    return (this.day = date.getDate());
+  }
+
   getDay(date: Date) {
-    //console.log(date);
-    //console.log(date.getDate());
-   // this.day = date.getDate();
-    this.date = date;
-    this.visible = true;
+    // date.toISOString().replace(/\T(?<=T).*/g,"");
+    this.agendarService.findByDate(date.toString()).subscribe((data) => {
+      this.marcacao={
+        date:date,
+        agendar:data
+      }
+    
+      this.eventExchanger.publishAsk(this.marcacao);
+    });
   }
 }
