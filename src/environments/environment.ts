@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   name:'prod',
-  api:'https://calendario-rest.herokuapp.com/api/v1'
+  api:'http://localhost:8080/api/v1'
 };
 
 /*
