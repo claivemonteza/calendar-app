@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AgendarService } from 'src/app/service/agendar.service';
 import { ListModal } from 'src/app/shared/class/list-modal';
 import { EventExchanger } from './event-exchanger.service';
@@ -38,7 +38,7 @@ export class AddComponent extends ListModal<any> implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {
-    this.visible = false;
+    this.buildForm();
   }
 
 
@@ -47,25 +47,23 @@ export class AddComponent extends ListModal<any> implements OnInit, OnDestroy{
     this.visible = true;
   }
 
-
   buildForm(): void {
     this.validateForm = this.fb.group({
-      information: []
+      information: ['', [Validators.required]]
     });
   }
 
   submitForm(){
-    
-    let data = {
-      date: this.marcacao?.date,
-      informacao: this.validateForm.value.information
+    let marc = {
+      data: this.marcacao?.date,
+      informacao: this.validateForm?.value.information
     }
-    console.log(data);
-    this.visible = false;
-
-    this.agendaService.add(data).subscribe((m) => {
+    this.loading = true;
+    this.agendaService.add(marc).subscribe((m) => {
       this.visible = false;
-      this.marcacao=[m,...this.marcacao];
+      this.loading = false;
+      this.validateForm.reset();
+      this.marcacao.agendar=[...this.marcacao.agendar, m];
     });
     
   }
@@ -76,11 +74,12 @@ export class AddComponent extends ListModal<any> implements OnInit, OnDestroy{
     }, 3000);
   }
 
-
+  handleCancel():void{
+    this.validateForm.reset();
+    this.visible = false;
+  }
 
 /* Tags */
-
-
   deleteRow(info: string): void {
     this.agendaService.delete(info).subscribe((marcacao) => {
       this.marcacao.agendar=this.marcacao.agendar.filter((a: any) => a.informacao !== info);
