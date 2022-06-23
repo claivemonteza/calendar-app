@@ -1,4 +1,5 @@
-import { HttpClient } from "@angular/common/http";
+import { keyframes } from "@angular/animations";
+import { HttpClient, HttpParams} from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
@@ -16,8 +17,10 @@ export class AgendarService {
     return this.http.post<IAgendar>(`${this.url}/marcacao/save`, country);
   }
 
-  public delete(info:string): Observable<any>  {
-    return this.http.delete(`${this.url}/marcacao/deleteInfo/${info}`);
+  public delete(date:string, info:string): Observable<any>  {
+    const params = new HttpParams({fromObject: {'information':info}});
+    const options = {params};
+    return this.http.delete(`${this.url}/marcacao/deleteInfo/${date}`,options);
   }
 
   public getAll() {
@@ -28,3 +31,5 @@ export class AgendarService {
     return this.http.get<IAgendar[]>(`${this.url}/marcacao/byDate/${date}`);
   }
 }
+
+

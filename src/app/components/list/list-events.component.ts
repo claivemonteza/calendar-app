@@ -54,16 +54,16 @@ export class AddComponent extends ListModal<any> implements OnInit, OnDestroy{
   }
 
   submitForm(){
-    let marc = {
+    let booking = {
       data: this.marcacao?.date,
       informacao: this.validateForm?.value.information
     }
     this.loading = true;
-    this.agendaService.add(marc).subscribe((m) => {
+    this.agendaService.add(booking).subscribe(() => {
       this.visible = false;
       this.loading = false;
       this.validateForm.reset();
-      this.marcacao.agendar=[...this.marcacao.agendar, m];
+      this.marcacao.agendar=[...this.marcacao.agendar, booking];
     });
     
   }
@@ -80,8 +80,8 @@ export class AddComponent extends ListModal<any> implements OnInit, OnDestroy{
   }
 
 /* Tags */
-  deleteRow(info: string): void {
-    this.agendaService.delete(info).subscribe((marcacao) => {
+  deleteRow(date:Date, info: string): void {
+    this.agendaService.delete(date.toString(), info).subscribe((marcacao) => {
       this.marcacao.agendar=this.marcacao.agendar.filter((a: any) => a.informacao !== info);
     });
   }

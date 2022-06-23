@@ -47,7 +47,7 @@
             {{ data.informacao }}
           </td>
           <td>
-            <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data.informacao)">
+            <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(marcacao?.date , data.informacao)">
               <i nz-icon nzType="delete" nzTheme="fill"></i>
               Delete
             </a>
