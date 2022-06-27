@@ -1,0 +1,23 @@
+<button nz-button nzType="primary"  nzShape="round" class="button" *ngIf="!isVisible" (click)="openModal()">
+    <i nz-icon nzType="plus"></i>
+   New
+  </button>
+  <div *ngIf="isVisible">
+    <form [formGroup]="form" >
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input information!">
+            <textarea nz-input formControlName="information" placeholder="Information" rows="3"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button nzType="primary" [nzLoading]="loading" [disabled]='!form.dirty' (click)="submitForm()">
+            Save
+          </button>
+          <button nz-button nzType="primary" class="buttonCancel" (click)="cancelModal()">
+           Cancel
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
