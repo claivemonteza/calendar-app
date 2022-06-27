@@ -7,30 +7,7 @@
 >
   <ng-container *nzModalContent>
     <div class="addInfo">
-      <button nz-button nzType="primary"  nzShape="round" class="button" *ngIf="!visible" (click)="showInput($event)">
-        <i nz-icon nzType="plus"></i>
-       New
-      </button>
-      <div *ngIf="visible">
-        <form [formGroup]="validateForm" >
-          <nz-form-item>
-            <nz-form-control nzErrorTip="Please input information!">
-                <textarea nz-input formControlName="information" placeholder="Information" rows="3"></textarea>
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-control>
-              <button nz-button nzType="primary" [nzLoading]="loading" [disabled]='!validateForm.dirty' (click)="submitForm()">
-                Save
-              </button>
-              <button nz-button nzType="primary" class="buttonCancel" (click)="handleCancel()">
-               Cancel
-              </button>
-            </nz-form-control>
-          </nz-form-item>
-        </form>
-        
-      </div>
+      <app-add-events (add)="onAddedElement($event)" [date]="marcacao?.date"></app-add-events>
     </div>
     
 
