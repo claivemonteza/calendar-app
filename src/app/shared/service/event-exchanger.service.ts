@@ -1,4 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
+import { IAgendar } from 'src/app/domain/agendar';
 import { IMarcacao } from 'src/app/domain/marcacao';
 
 @Injectable({
