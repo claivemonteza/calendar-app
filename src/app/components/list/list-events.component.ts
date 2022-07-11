@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AgendarService } from 'src/app/service/agendar.service';
+import { AgendarService } from 'src/app/shared/service/agendar.service';
 import { ListModal } from 'src/app/shared/class/list-modal';
-import { EventExchanger } from './event-exchanger.service';
+import { EventExchanger } from '../../shared/service/event-exchanger.service';
 
 
 
@@ -12,16 +12,7 @@ import { EventExchanger } from './event-exchanger.service';
   templateUrl: './list-events.component.html',
   styleUrls: ['./list-events.component.less'],
 })
-export class AddComponent extends ListModal<any> implements OnInit, OnDestroy{
-  
-  marcacao: any;
-
-  validateForm!: FormGroup;
-
-  inputVisible = false;
-  inputValue = ' ';
-
-  visible = false;
+export class ListEventsComponent extends ListModal<any> implements OnInit, OnDestroy{
 
   constructor(private eventExchanger: EventExchanger, private agendaService: AgendarService, private fb: FormBuilder) {
     super();
@@ -38,33 +29,6 @@ export class AddComponent extends ListModal<any> implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {
-    this.buildForm();
-  }
-
-
-  showInput(event:Event){
-    event.preventDefault();
-    this.visible = true;
-  }
-
-  buildForm(): void {
-    this.validateForm = this.fb.group({
-      information: ['', [Validators.required]]
-    });
-  }
-
-  submitForm(){
-    let booking = {
-      data: this.marcacao?.date,
-      informacao: this.validateForm?.value.information
-    }
-    this.loading = true;
-    this.agendaService.add(booking).subscribe(() => {
-      this.visible = false;
-      this.loading = false;
-      this.validateForm.reset();
-      this.marcacao.agendar=[...this.marcacao.agendar, booking];
-    });
     
   }
 
@@ -74,15 +38,12 @@ export class AddComponent extends ListModal<any> implements OnInit, OnDestroy{
     }, 3000);
   }
 
-  handleCancel():void{
-    this.validateForm.reset();
-    this.visible = false;
-  }
+
 
 /* Tags */
   deleteRow(date:Date, info: string): void {
-    this.agendaService.delete(date.toString(), info).subscribe((marcacao) => {
-      this.marcacao.agendar=this.marcacao.agendar.filter((a: any) => a.informacao !== info);
+    this.agendaService.delete(date.toString(), info).subscribe(() => {
+      this.onDeletedElement(date, info);
     });
   }
 

@@ -1,9 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { concatMapTo } from "rxjs";
-import { EventExchanger } from "./components/list/event-exchanger.service";
+import { EventExchanger } from "./shared/service/event-exchanger.service";
 import { IAgendar } from "./domain/agendar";
 import { IMarcacao } from "./domain/marcacao";
-import { AgendarService } from "./service/agendar.service";
+import { AgendarService } from "./shared/service/agendar.service";
+import { ListModal } from "./shared/class/list-modal";
 
 @Component({
   selector: "app-root",
@@ -14,13 +15,20 @@ export class AppComponent implements OnInit {
   title = "calendar-app";
   day?: number;
 
-  marcacao?: any;
+  marcacao: any;
+  
   source: IAgendar[] = [];
 
 
-  constructor(private agendarService: AgendarService, private eventExchanger: EventExchanger) {}
+  constructor(private agendarService: AgendarService, private eventExchanger: EventExchanger) {
+   
+  }
 
   ngOnInit(): void {
+    this.listt();
+  }
+
+  listt(){
     this.agendarService.getAll().subscribe((data) => {
       this.source = data;
     });

@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NzCalendarModule } from 'ng-zorro-antd/calendar'
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
-import { AddComponent } from './components/list/list-events.component';
+import { ListEventsComponent } from './components/list/list-events.component';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -23,13 +23,15 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { AddEventsComponent } from './components/add-events/add-events.component';
 
 registerLocaleData(en);
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddComponent
+    ListEventsComponent ,
+    AddEventsComponent
   ],
   imports: [
     BrowserModule,
