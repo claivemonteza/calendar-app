@@ -3,8 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AgendarService } from 'src/app/shared/service/agendar.service';
 import { ListModal } from 'src/app/shared/class/list-modal';
 import { EventExchanger } from '../../shared/service/event-exchanger.service';
-
-
+import { IAgendar } from 'src/app/domain/agendar';
 
 
 @Component({
@@ -38,15 +37,12 @@ export class ListEventsComponent extends ListModal<any> implements OnInit, OnDes
     }, 3000);
   }
 
-
-
 /* Tags */
-  deleteRow(date:Date, info: string): void {
+  deleteRow(date:Date, info: string ): void {
     this.agendaService.delete(date.toString(), info).subscribe(() => {
       this.onDeletedElement(date, info);
     });
   }
-
 }
 
 
