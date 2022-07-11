@@ -46,11 +46,12 @@ export class AppComponent implements OnInit {
   }
 
   getDay(date: Date) {
+  //event.stopPropagation()
     // date.toISOString().replace(/\T(?<=T).*/g,"");
     this.agendarService.findByDate(date.toString()).subscribe((data) => {
       this.marcacao={
         date:date,
-        agendar:data
+        agendamentos:data
       }
     
       this.eventExchanger.publishAsk(this.marcacao);
