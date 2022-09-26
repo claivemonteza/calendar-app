@@ -3,7 +3,7 @@
     <ul *nzDateCell="let date" class="events">
       <ng-container [ngSwitch]="date.getDate()">
         <li *ngFor="let agenda of source">
-          <div *ngIf="agenda?.data === date.toDateString()">
+          <div *ngIf="agenda.day==date.getDate()">
             <nz-badge nzStatus="success" [nzText]="agenda.informacao"></nz-badge>
           </div>
         </li>
