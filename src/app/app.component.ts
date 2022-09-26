@@ -13,11 +13,10 @@ import { ListModal } from "./shared/class/list-modal";
 })
 export class AppComponent implements OnInit {
   title = "calendar-app";
-  day?: number;
 
   marcacao: any;
   
-  source: IAgendar[] = [];
+  source?: IAgendar[];
 
 
   constructor(private agendarService: AgendarService, private eventExchanger: EventExchanger) {
@@ -25,12 +24,13 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.listt();
+    this.list();
   }
 
-  listt(){
+  list(){
     this.agendarService.getAll().subscribe((data) => {
       this.source = data;
+      console.log(this.source);
     });
   }
 
@@ -40,20 +40,33 @@ export class AppComponent implements OnInit {
     }
     return null;
   }
-
+/*
   setDate(date: Date) {
-    return (this.day = date.getDate());
-  }
+    return date.getDate();
+  }*/
 
   getDay(date: Date) {
+  //event.stopPropagation()
     // date.toISOString().replace(/\T(?<=T).*/g,"");
     this.agendarService.findByDate(date.toString()).subscribe((data) => {
       this.marcacao={
         date:date,
-        agendar:data
+        agendamentos:data
       }
     
       this.eventExchanger.publishAsk(this.marcacao);
     });
+  }
+
+  check(agenda:IAgendar, date?:Date){
+
+//toDateString()                 Fri Oct 07 2022
+//toISOString()|toJSON()         2022-10-06T22:00:00.000Z
+//toLocaleDateString()           10/7/2022
+//toLocaleString()               10/7/2022, 12:00:00 AM
+//toUTCString()                  Fri, 07 Oct 2022 22:00:00 GMT
+//toSring()                      Sat Oct 08 2022 00:00:00 GMT+0200 (Central Africa Time)
+    
+    return agenda?.data === date?.toDateString();
   }
 }

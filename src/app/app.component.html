@@ -1,20 +1,20 @@
 <div class="container">
-    <nz-calendar [nzFullscreen]="true" (nzSelectChange)="getDay($event)">
-      <ul *nzDateCell="let date" class="events">
-        <ng-container [ngSwitch]="setDate(date)">
-          <ng-container *ngSwitchCase="8">
-            <li *ngFor="let agenda of source" >
-              <nz-badge nzStatus="success" [nzText]="agenda.informacao"></nz-badge>
-            </li>
-          </ng-container>
-        </ng-container>
-      </ul>
-      <ng-container *nzMonthCell="let month">
-        <div *ngIf="getMonthData(month) as monthData" class="notes-month">
-          <section>{{ monthData }}</section>
-          <span>Backlog number</span>
-        </div>
+  <nz-calendar [nzFullscreen]="true" (nzSelectChange)="getDay($event)">
+    <ul *nzDateCell="let date" class="events">
+      <ng-container [ngSwitch]="date.getDate()">
+        <li *ngFor="let agenda of source">
+          <div *ngIf="agenda?.data === date.toDateString()">
+            <nz-badge nzStatus="success" [nzText]="agenda.informacao"></nz-badge>
+          </div>
+        </li>
       </ng-container>
-    </nz-calendar>
+    </ul>
+    <ng-container *nzMonthCell="let month">
+      <div *ngIf="getMonthData(month) as monthData" class="notes-month">
+        <section>{{ monthData }}</section>
+        <span>Backlog number</span>
+      </div>
+    </ng-container>
+  </nz-calendar>
   <app-list-events (elements)="source"></app-list-events>
 </div>

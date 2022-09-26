@@ -7,11 +7,9 @@
 >
   <ng-container *nzModalContent>
     <div class="addInfo">
-      <app-add-events (add)="onAddedElement($event)" [date]="marcacao?.date"></app-add-events>
+      <app-add-events (newItem)='onAddedElement($event)' [date]="marcacao?.date" [value]="value" [isVisible]="updateVisible"></app-add-events>
     </div>
-    
-
-    <nz-table #editRowTable  [nzData]="marcacao?.agendar" nzBordered [nzScroll]="{ y: '240px' }">
+    <nz-table #editRowTable  [nzData]="marcacao?.agendamentos" [nzScroll]="{ y: '240px' }">
       <thead>
         <tr>
           <th nzWidth="80%">Event</th>
@@ -19,7 +17,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of editRowTable?.data" class="editable-row">
+        <tr *ngFor="let data of editRowTable?.data" class="editable-row" (click)="selectElement(data.informacao)">
           <td nzWidth="80%">
             {{ data.informacao }}
           </td>
@@ -32,5 +30,6 @@
         </tr>
       </tbody>
     </nz-table>
+   
   </ng-container>
 </nz-modal>

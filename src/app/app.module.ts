@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NzCalendarModule } from 'ng-zorro-antd/calendar'
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
-import { ListEventsComponent } from './components/list/list-events.component';
+import { ListEventsComponent } from './components/list-events/list-events.component';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';

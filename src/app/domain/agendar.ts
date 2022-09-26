@@ -1,4 +1,4 @@
 export interface IAgendar {
-  date?: Date;
+  data?: Date;
   informacao?: string;
 }

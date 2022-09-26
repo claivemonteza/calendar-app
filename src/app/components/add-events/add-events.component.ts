@@ -1,19 +1,23 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AgendarService } from 'src/app/shared/service/agendar.service';
-import { AddModalImpl } from 'src/app/shared/class/add-modal-impl';
+import { AddModal } from 'src/app/shared/class/add-modal';
 
 @Component({
   selector: 'app-add-events',
   templateUrl: './add-events.component.html',
   styleUrls: ['./add-events.component.less']
 })
-export class AddEventsComponent extends AddModalImpl<any> implements OnInit {
+export class AddEventsComponent extends AddModal<any> implements OnInit {
 
   @Input() date!: Date;
 
+  @Input()value: string = '';
+
+  @Input() override isVisible: boolean = false;
   constructor(private agendaService: AgendarService, private fb: FormBuilder) {
     super();
+    
   }
 
   ngOnInit(): void {
@@ -22,21 +26,24 @@ export class AddEventsComponent extends AddModalImpl<any> implements OnInit {
 
   override buildForm(): void {
     this.form = this.fb.group({
-      information: ['', [Validators.required]]
+      information: [null, this.noWhitespaceValidator]
+      //information: [null, Validators.required]
     });
   }
 
   override submitForm(){
-    let booking = {
-      data: this.date.toString(),
-      informacao: this.form?.value.information
+
+    const isValidForm = this.isValidForm();
+    if(isValidForm){
+      let booking = {
+        data: this.date,
+        informacao: this.form?.value.information
+      }
+  
+      this.agendaService.add(booking).subscribe((agendar) => {
+        this.addedElement(agendar);
+      })
     }
-    this.loading = true;
-    console.log(booking);
-    this.agendaService.add(booking).subscribe((a) => {
-      this.addedElement(booking);
-    });
-    
   }
 
 }
