@@ -1,7 +1,6 @@
 import { Component, Input, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AgendarService } from 'src/app/shared/service/agendar.service';
-import { IAgendar } from 'src/app/domain/agendar';
 import { AddModal } from 'src/app/shared/class/add-modal';
 
 @Component({
@@ -37,7 +36,7 @@ export class AddEventsComponent extends AddModal<any> implements OnInit {
     const isValidForm = this.isValidForm();
     if(isValidForm){
       let booking = {
-        data: this.date.toString(),
+        data: this.date,
         informacao: this.form?.value.information
       }
   
