@@ -8,13 +8,19 @@
       <nz-form-item>
         <nz-form-control>
           <div class="buttons">
-            <button nz-button class="button" *ngIf="!isVisible" [nzGhost]="!isVisible" nzType="primary" nzShape="circle" [nzLoading]="loading" [disabled]='!form.dirty' (click)="submitForm()">
+            <button nz-button class="button" *ngIf="!isVisible" 
+            nzTooltipTitle="Add" nz-tooltip
+            [nzGhost]="!isVisible" nzType="primary" nzShape="circle" [nzLoading]="loading" [disabled]='!form.dirty' (click)="submitForm()">
               <i nz-icon nzType="plus"></i>
             </button>
-            <button nz-button class="button" *ngIf="isVisible" [nzGhost]="!isVisible" nzType="primary" nzShape="circle" [nzLoading]="loading">
+            <button nz-button class="button" *ngIf="isVisible" 
+            nzTooltipTitle="Update" nz-tooltip
+            [nzGhost]="!isVisible" nzType="primary" nzShape="circle" [nzLoading]="loading">
               <i nz-icon nzType="sync"></i>
             </button>
-            <button nz-button class="button" nzType="default" nzShape="circle" (click)="cancelModal()">
+            <button nz-button class="button" 
+            nzTooltipTitle="Cancel" nz-tooltip
+            nzType="default" nzShape="circle" (click)="cancelModal()">
               <i nz-icon nzType="minus"></i>
             </button>
           </div> 
