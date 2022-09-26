@@ -13,12 +13,13 @@ export class AgendarService {
 
   constructor(private http: HttpClient) {}
 
-  public add(agendar: IAgendar): Observable<IAgendar> {
+  public add(agendar: any): Observable<IAgendar> {
     return this.http.post<IAgendar>(`${this.url}/marcacao/save`, agendar);
   }
 
   public delete(date:string, info:string): Observable<any>  {
     const params = new HttpParams({fromObject: {'information':info}});
+    
     const options = {params};
     return this.http.delete(`${this.url}/marcacao/deleteInfo/${date}`,options);
   }
