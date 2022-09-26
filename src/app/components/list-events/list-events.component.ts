@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { AgendarService } from 'src/app/shared/service/agendar.service';
 import { ListModal } from 'src/app/shared/class/list-modal';
 import { EventExchanger } from '../../shared/service/event-exchanger.service';
-import { IAgendar } from 'src/app/domain/agendar';
 
 
 @Component({
