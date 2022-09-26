@@ -28,7 +28,7 @@ export class ListModal<T>  {
   }
 
   onDeletedElement(date: Date, info: string) {
-    this.marcacao.agendamentos = this.marcacao.agendamentos?.filter((a: IAgendar) => a.date !== date && a.informacao !== info);
+    this.marcacao.agendamentos = this.marcacao.agendamentos?.filter((a: IAgendar) => a.data !== date && a.informacao !== info);
     this.value = '';
   }
 }
