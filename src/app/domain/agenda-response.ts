@@ -1,6 +1,5 @@
-export interface IResponse {
+export interface IAgendaResponse {
     data?: string;
     informacao?: string;
-    day?:number;
   }
   
