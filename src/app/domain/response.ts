@@ -1,5 +1,5 @@
 export interface IResponse {
-    data?: Date;
+    data?: string;
     informacao?: string;
     day?:number;
   }
