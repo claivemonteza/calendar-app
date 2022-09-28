@@ -36,10 +36,12 @@ export class AddEventsComponent extends AddModal<any> implements OnInit {
     const isValidForm = this.isValidForm();
     if(isValidForm){
       let booking = {
-        data: this.date,
+        data: this.date.toDateString() ,
         informacao: this.form?.value.information
       }
   
+    //  console.log(booking);
+
       this.agendaService.add(booking).subscribe((agendar) => {
         this.addedElement(agendar);
       })

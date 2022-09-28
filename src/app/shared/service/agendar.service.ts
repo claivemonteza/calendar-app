@@ -1,7 +1,7 @@
-import { keyframes } from "@angular/animations";
 import { HttpClient, HttpParams} from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { IAgendaResponse } from "src/app/domain/agenda-response";
 import { environment } from "src/environments/environment";
 import { IAgendar } from "../../domain/agendar";
 
@@ -25,7 +25,7 @@ export class AgendarService {
   }
 
   public getAll() {
-    return this.http.get<IAgendar[]>(`${this.url}/marcacao`);
+    return this.http.get<IAgendaResponse[]>(`${this.url}/marcacao`);
   }
 
   public findByDate(date : string){
