@@ -1,7 +1,7 @@
 import { FormControl, FormGroup} from '@angular/forms';
-import { Output, EventEmitter, Injectable, Input} from '@angular/core';
+import { Output, EventEmitter, Injectable, Input, Directive} from '@angular/core';
 
-@Injectable()
+@Directive()
 export class AddModal<T>  {
     form!: FormGroup;
     

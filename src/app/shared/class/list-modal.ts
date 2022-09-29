@@ -1,7 +1,7 @@
-import { Output, EventEmitter, Injectable, Input } from '@angular/core';
+import { Output, EventEmitter, Injectable, Input, Directive } from '@angular/core';
 import { IAgendar } from 'src/app/domain/agendar';
 
-@Injectable()
+@Directive()
 export class ListModal<T>  {
   isVisible: boolean = false;
   loading: boolean = false;
