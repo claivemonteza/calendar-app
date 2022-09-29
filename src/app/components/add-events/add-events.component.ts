@@ -2,6 +2,7 @@ import { Component, Input, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AgendarService } from 'src/app/shared/service/agendar.service';
 import { AddModal } from 'src/app/shared/class/add-modal';
+import { IAgendar } from 'src/app/domain/agendar';
 
 @Component({
   selector: 'app-add-events',
@@ -39,9 +40,6 @@ export class AddEventsComponent extends AddModal<any> implements OnInit {
         data: this.date.toDateString() ,
         informacao: this.form?.value.information
       }
-  
-    //  console.log(booking);
-
       this.agendaService.add(booking).subscribe((agendar) => {
         this.addedElement(agendar);
       })

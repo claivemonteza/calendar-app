@@ -16,9 +16,8 @@ export class ListModal<T>  {
   list(reset?: boolean) { }
 
   onAddedElement(t: T) {
-    this.marcacao.agendamentos.push(t);
-    console.log(this.marcacao.agendamentos);
-    /*this.newEvent.emit(t);*/
+    this.marcacao.agendamentos=[t,...this.marcacao.agendamentos];
+    this.newEvent.emit(t);
   }
 
   selectElement(t: T) {
@@ -27,8 +26,8 @@ export class ListModal<T>  {
     this.value = t;
   }
 
-  onDeletedElement(date: Date, info: string) {
-    this.marcacao.agendamentos = this.marcacao.agendamentos?.filter((a: IAgendar) => a.data !== date && a.informacao !== info);
+  onDeletedElement(t:any) {
+    this.marcacao.agendamentos = this.marcacao.agendamentos?.filter((a: IAgendar) => a.informacao !== t.informacao);
     this.value = '';
   }
 }

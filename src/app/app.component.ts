@@ -19,7 +19,6 @@ export class AppComponent implements OnInit {
 
   source?: IAgendaResponse[];
 
-
   constructor(private agendarService: AgendarService, private eventExchanger: EventExchanger) {
 
   }
