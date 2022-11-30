@@ -7,7 +7,35 @@
 >
   <ng-container *nzModalContent>
     <div class="addInfo">
-      <app-add-events (add)="onAddedElement($event)" [date]="marcacao?.date" [value]="value" [isVisible]="updateVisible"></app-add-events>
+       <form [formGroup]="form" class="form">
+        <nz-form-item class="form_item">
+          <nz-form-control nzErrorTip="Please input information!">
+              <textarea nz-input [(ngModel)]="value" formControlName="information" placeholder="Information" nzAutosize></textarea>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <div class="buttons">
+              <button nz-button class="button" *ngIf="!updateVisible" 
+              nzTooltipTitle="Add" nz-tooltip
+              [nzGhost]="!updateVisible" nzType="primary" nzShape="circle" [nzLoading]="loading" [disabled]='!form.dirty' (click)="submitForm()">
+                <i nz-icon nzType="plus"></i>
+              </button>
+              <button nz-button class="button" *ngIf="updateVisible"  (click)="update()"
+              nzTooltipTitle="Update" nz-tooltip
+              [nzGhost]="!updateVisible" nzType="primary" nzShape="circle" [nzLoading]="loading">
+                <i nz-icon nzType="sync"></i>
+              </button>
+              <button nz-button class="button" 
+              nzTooltipTitle="Cancel" nz-tooltip
+              nzType="default" nzShape="circle" (click)="cancel()">
+                <i nz-icon nzType="minus"></i>
+              </button>
+            </div> 
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+   
     </div>
     <nz-table #editRowTable  [nzData]="marcacao?.agendamentos" [nzScroll]="{ y: '240px' }">
       <thead>
@@ -23,9 +51,8 @@
           </td>
           <td>
            <a nz-popconfirm nzPopconfirmTitle="Are you sure want to delete?" (nzOnConfirm)="deleteRow(agenda)">
-                      <i nz-icon nzType="delete" nzTheme="outline"></i>
-                      
-                    </a>
+              <i nz-icon nzType="delete" nzTheme="outline"></i>
+            </a>
           </td>
         </tr>
       </tbody>

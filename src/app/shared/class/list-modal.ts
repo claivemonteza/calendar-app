@@ -11,7 +11,7 @@ export class ListModal<T>  {
   @Output() newEvent = new EventEmitter<T>();
 
   openModal() { this.isVisible = true; }
-  cancelModal() { this.isVisible = false; this.value = ''; }
+  cancelModal() { this.isVisible = false;this.updateVisible = false; this.value = ''; }
 
   list(reset?: boolean) { }
 
@@ -22,7 +22,6 @@ export class ListModal<T>  {
 
   selectElement(t: T) {
     this.updateVisible = true;
-    this.value = '';
     this.value = t;
   }
 

@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
 
   marcacao: any;
 
-  source?: IAgendaResponse[];
+  source?: IAgendaResponse[] = [];
 
   constructor(private agendarService: AgendarService, private eventExchanger: EventExchanger) {
 
@@ -33,14 +33,21 @@ export class AppComponent implements OnInit {
     });
   }
 
-  getMonthData(date: Date): number | null {
-    if (date.getMonth() === 8) {
-      return 1394;
+  getMonthData(date: Date): number | null{
+    const t = this.source?.filter(a=>
+      a?.data?.split(" ")[1] === date.toDateString().split(" ")[1]);
+
+    for (let index = 1; index < 12; index++) {
+      if(date.getMonth()===index){
+        return t!.length;
+      }   
     }
     return null;
   }
 
-  getDay(date: Date) {
+  getDay(date: any) {
+    //event.preventDefault();
+   // event.stopPropagation();
     // date.toISOString().replace(/\T(?<=T).*/g,"");
     this.agendarService.findByDate(date.toString()).subscribe((data) => {
       this.marcacao = {
