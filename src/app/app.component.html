@@ -4,7 +4,9 @@
       <ng-container [ngSwitch]="date.getDate()">
         <li *ngFor="let agenda of source">
           <div *ngIf="check(agenda.data, date)">
-            <nz-badge nzStatus="success" [nzText]="agenda.informacao"></nz-badge>
+            <div *ngFor="let info of agenda.informacoes">
+                <nz-badge nzStatus="default" [nzText]="info"></nz-badge>
+            </div>
           </div>
         </li>
       </ng-container>

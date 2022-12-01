@@ -21,7 +21,6 @@ export class ListEventsComponent extends ListModal<any> implements OnInit, OnDes
       (marcacao) => {
         this.marcacao = marcacao;
         this.date = marcacao.date;
-        console.log(this.marcacao);
         this.openModal();
       }
     );
