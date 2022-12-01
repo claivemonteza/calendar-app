@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
   name:'prod',
-  api:'https://calendario-rest.herokuapp.com/api/v1'
+  api:'https://calendary-api.herokuapp.com/api/v1'
 };
