@@ -1,5 +1,5 @@
 export interface IAgendaResponse {
     data?: string;
-    informacao?: string;
+    informacoes?: string[];
   }
   

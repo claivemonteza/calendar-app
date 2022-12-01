@@ -1,7 +1,7 @@
-import { Output, EventEmitter, Injectable, Input } from '@angular/core';
+import { Output, EventEmitter, Injectable, Input, Directive } from '@angular/core';
 import { IAgendar } from 'src/app/domain/agendar';
 
-@Injectable()
+@Directive()
 export class ListModal<T>  {
   isVisible: boolean = false;
   loading: boolean = false;
@@ -11,24 +11,22 @@ export class ListModal<T>  {
   @Output() newEvent = new EventEmitter<T>();
 
   openModal() { this.isVisible = true; }
-  cancelModal() { this.isVisible = false; this.value = ''; }
+  cancelModal() { this.isVisible = false;this.updateVisible = false; this.value = ''; }
 
   list(reset?: boolean) { }
 
   onAddedElement(t: T) {
-    this.marcacao.agendamentos.push(t);
-    console.log(this.marcacao.agendamentos);
-    /*this.newEvent.emit(t);*/
+    this.marcacao.agendamentos=[t,...this.marcacao.agendamentos];
+    this.newEvent.emit(t);
   }
 
   selectElement(t: T) {
     this.updateVisible = true;
-    this.value = '';
     this.value = t;
   }
 
-  onDeletedElement(date: Date, info: string) {
-    this.marcacao.agendamentos = this.marcacao.agendamentos?.filter((a: IAgendar) => a.data !== date && a.informacao !== info);
+  onDeletedElement(t:any) {
+    this.marcacao.agendamentos = this.marcacao.agendamentos?.filter((a: IAgendar) => a.informacao !== t.informacao);
     this.value = '';
   }
 }

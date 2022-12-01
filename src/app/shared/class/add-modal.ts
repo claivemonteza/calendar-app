@@ -1,15 +1,15 @@
 import { FormControl, FormGroup} from '@angular/forms';
-import { Output, EventEmitter, Injectable, Input} from '@angular/core';
+import { Output, EventEmitter, Injectable, Input, Directive} from '@angular/core';
 
-@Injectable()
+@Directive()
 export class AddModal<T>  {
     form!: FormGroup;
     
     loading: boolean = false;
 
     @Input() isVisible: boolean = false;
-    @Output() newItem = new EventEmitter<T>();
-
+    @Output() add = new EventEmitter<T>();
+    @Output() adds = new EventEmitter<T[]>();
     constructor() {}
 
     buildForm() { }
@@ -25,8 +25,14 @@ export class AddModal<T>  {
 
     addedElement(t: T) {
         this.loading = false;
-        this.resetForm();
-        this.newItem.emit(t);
+        this.add.emit(t);
+        this.cancelModal();
+    }
+
+    addedElements(t: T[], msg: string) {
+        this.loading = false;
+        this.adds.emit(t);
+        this.cancelModal(); 
     }
 
     isValidForm(): boolean {
